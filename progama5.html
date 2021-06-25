@@ -4,58 +4,67 @@
 	
 	var tela = document.querySelector('canvas');
 	var pincel = tela.getContext('2d');
-	pincel.fillStyle = 'lightgray'
+
+	pincel.fillStyle = 'lightgray';
 	pincel.fillRect(0, 0, 600, 400);
 
 	var raio = 10;
 	var xAleatorio;
 	var yAleatorio;
 
+	setInterval(atualizaTela, 1000);
 
-		function desenhaCirculo(x, y, raio, cor){
+	debugger;
 
-			pincel.fillStyle = cor;
-			pincel.beginPath();
-			pincel.arc(x, y, raio, 0, 2 * Math.PI);
-			pincel.fill();
+	function desenhaCirculo(x, y, raio, cor){
+		debugger;
+		pincel.fillStyle = cor;
+		pincel.beginPath();
+		pincel.arc(x, y, raio, 0, 2 * Math.PI);
+		pincel.fill();
 
-		}
-		function limpaTela(){
-			pincel.clearRect(0, 0, 600, 400);
+	}
+	function limpaTela(){
+		// debugger;
+		// pincel.clearRect(0, 0, 600, 400);
+	}
 
-		}
+	function desenhaAlvo(x, y){
+		debugger;
+		desenhaCirculo(x,y, raio+20, 'red')
+		desenhaCirculo(x,y, raio+10, 'white');
+		desenhaCirculo(x,y, raio, 'red');
 
-		function desenhaAlvo(x, y){
+	}
+	function alvoAleatorio(maximo){
+		debugger;
+		return Math.floor(Math.random() * maximo)
 
-			desenhaCirculo(x,y, raio+20, 'red')
-			desenhaCirculo(x,y, raio+10, 'white');
-			desenhaCirculo(x,y, raio, 'red');
+	}
 
-		}
-		function alvoAleatorio(maximo){
-
-			return Math.floor(Math.random() * maximo)
-
-		}
-		function atualizaTela(){
+	function atualizaTela(){
+		debugger;
 		limpaTela();
+
 		desenhaAlvo(xAleatorio, yAleatorio);
+	}
 
+
+	function dispara(evento) {
+		// ERRO NESTA PARTE, IMPOSSÍVEL DE CONTINUAR 
+		var x = evento.pageX - tela.offSetLeft;
+		var y = evento.pageY - tela.offSetTop;
+
+		if(
+			(x > xAleatorio - raio) 
+			&& (x < xAleatorio + raio) 
+			&& (y > yAleatorio) 
+			&& (y < yAleatorio + raio)
+		){
+			alert("Acertou!");
 		}
+	}
 
-		setInterval(atualizaTela, 1000);
-
-		function dispara(evento){
-				//ERRO NESTA PARTE, IMPOSSÍVEL DE CONTINUAR//
-			var x = evento.pageX - tela.offSetLeft;
-			var y = evento.pageY - tela.offSetTop;
-
-				if(  (x > xAleatorio - raio) && (x < xAleatorio + raio) && (y > yAleatorio) && (y < yAleatorio + raio)){
-					alert("Acertou!")
-								}
-
-					}
-
-		tela.onclick = dispara;
+	tela.onclick = dispara;
 
 </script>
