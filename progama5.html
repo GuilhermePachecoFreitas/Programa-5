@@ -1,20 +1,21 @@
 <canvas width="600" height="400"></canvas>
 
 <script >
-	
+	debugger;
+
+	const largura = 600;
+	const altura = 400;
+
 	var tela = document.querySelector('canvas');
 	var pincel = tela.getContext('2d');
-
-	pincel.fillStyle = 'lightgray';
-	pincel.fillRect(0, 0, 600, 400);
 
 	var raio = 10;
 	var xAleatorio;
 	var yAleatorio;
 
-	setInterval(atualizaTela, 1000);
+	atualizaTela();
 
-	debugger;
+	setInterval(atualizaTela, 1000);
 
 	function desenhaCirculo(x, y, raio, cor){
 		debugger;
@@ -24,31 +25,39 @@
 		pincel.fill();
 
 	}
+
 	function limpaTela(){
-		// debugger;
-		// pincel.clearRect(0, 0, 600, 400);
+		debugger;
+		pincel.clearRect(0, 0, tela.width, tela.height);
+		
+		pincel.fillStyle = 'lightgray';
+		pincel.fillRect(0, 0, largura, altura);
 	}
 
 	function desenhaAlvo(x, y){
 		debugger;
-		desenhaCirculo(x,y, raio+20, 'red')
-		desenhaCirculo(x,y, raio+10, 'white');
+		desenhaCirculo(x,y, raio*3, 'red')
+		desenhaCirculo(x,y, raio*2, 'white');
 		desenhaCirculo(x,y, raio, 'red');
 
 	}
 	function alvoAleatorio(maximo){
 		debugger;
-		return Math.floor(Math.random() * maximo)
+		let aleatorio = Math.floor(Math.random() * maximo);
 
+		if (aleatorio < raio*3) {
+			aleatorio = raio*3;
+		}
+
+		return aleatorio;
 	}
 
 	function atualizaTela(){
-		debugger;
 		limpaTela();
-
+		xAleatorio = alvoAleatorio(largura - (raio*3));
+		yAleatorio = alvoAleatorio(altura - (raio*3));
 		desenhaAlvo(xAleatorio, yAleatorio);
 	}
-
 
 	function dispara(evento) {
 		// ERRO NESTA PARTE, IMPOSSÍVEL DE CONTINUAR 
