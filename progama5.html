@@ -1,8 +1,6 @@
 <canvas width="600" height="400"></canvas>
 
 <script >
-	debugger;
-
 	const largura = 600;
 	const altura = 400;
 
@@ -15,10 +13,9 @@
 
 	atualizaTela();
 
-	setInterval(atualizaTela, 1000);
+	setInterval(atualizaTela, 10000);
 
 	function desenhaCirculo(x, y, raio, cor){
-		debugger;
 		pincel.fillStyle = cor;
 		pincel.beginPath();
 		pincel.arc(x, y, raio, 0, 2 * Math.PI);
@@ -27,7 +24,6 @@
 	}
 
 	function limpaTela(){
-		debugger;
 		pincel.clearRect(0, 0, tela.width, tela.height);
 		
 		pincel.fillStyle = 'lightgray';
@@ -35,14 +31,13 @@
 	}
 
 	function desenhaAlvo(x, y){
-		debugger;
 		desenhaCirculo(x,y, raio*3, 'red')
 		desenhaCirculo(x,y, raio*2, 'white');
 		desenhaCirculo(x,y, raio, 'red');
 
 	}
+
 	function alvoAleatorio(maximo){
-		debugger;
 		let aleatorio = Math.floor(Math.random() * maximo);
 
 		if (aleatorio < raio*3) {
@@ -60,15 +55,21 @@
 	}
 
 	function dispara(evento) {
-		// ERRO NESTA PARTE, IMPOSSÍVEL DE CONTINUAR 
-		var x = evento.pageX - tela.offSetLeft;
-		var y = evento.pageY - tela.offSetTop;
+		// ERRO NESTA PARTE, IMPOSSÍVEL DE CONTINUAR
+		var x = evento.pageX - tela.offsetLeft;
+		var y = evento.pageY - tela.offsetTop;
+
+		var xRaioMax =  xAleatorio + raio*3;
+		var xRaioMin = xAleatorio - raio*3;
+
+		var yRaioMax =  yAleatorio + raio*3;
+		var yRaioMin = yAleatorio - raio*3;
 
 		if(
-			(x > xAleatorio - raio) 
-			&& (x < xAleatorio + raio) 
-			&& (y > yAleatorio) 
-			&& (y < yAleatorio + raio)
+			(x > xRaioMin) 
+			&& (x < xRaioMax) 
+			&& (y > yRaioMin) 
+			&& (y < yRaioMax)
 		){
 			alert("Acertou!");
 		}
